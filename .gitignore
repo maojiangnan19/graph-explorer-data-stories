@@ -1,0 +1,17 @@
+.DS_Store
+.ipynb_checkpoints/
+.vscode/
+Untitled-1.ipynb
+hello.py
+lx.py
+test.py
+mjn课程
+user ux/
+social network/*
+!social network/
+!social network/51cfdb553c2550a8dc43050802ce933a.png
+!social network/marvel_degree_distributions.png
+!social network/marvel_directed_network.png
+!social network/marvel_reference_comparison.png
+!social network/week1_edges.tsv
+!social network/week1_nodes.tsv

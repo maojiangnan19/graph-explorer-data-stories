@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 2 data story: testing whether the Marvel network is a small world.">
+  <title>Week 2: Explore the Marvel Small World</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="week2.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/graphology/0.25.4/graphology.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sigma.js/2.4.0/sigma.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+  <script src="week2.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html"><span class="brand-mark">02</span><span>Graph Explorer</span></a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a>
+      <a href="../week1.html">Week 1</a>
+      <a class="active" href="week2.html">Week 2</a>
+    </nav>
+  </header>
+
+  <main>
+    <header class="story-hero">
+      <div class="story-hero-inner page-grid">
+        <p class="eyebrow">Week 2 / Network science</p>
+        <h1>Explore the Marvel<br><em>Small World</em></h1>
+        <p class="dek">How connected is the Marvel Universe?</p>
+        <p class="research-question"><strong>Research question:</strong> Is the Marvel Universe really a Small World?</p>
+      </div>
+    </header>
+
+    <div class="story-layout page-grid">
+      <aside class="toc" aria-label="Story sections">
+        <span class="section-kicker">In this story</span>
+        <a href="#network-section">Interactive network</a>
+        <a href="#hero">Find your hero</a>
+        <a href="#path">Find the path</a>
+        <a href="#comparison">Real vs random</a>
+        <a href="#conclusion">Conclusion + methods</a>
+      </aside>
+
+      <article class="story-body">
+        <section id="network-section" class="story-section first">
+          <p class="section-kicker">01 / Interactive network</p>
+          <h2>See the network at a glance</h2>
+          <p class="story-copy">The 303 Marvel pages are shown as an undirected projection of the Week 1 directed links. Click a hero to highlight its direct neighbors; search is available in the panel below.</p>
+          <div class="network-shell">
+            <div class="network-context"><span>303 characters · 1,434 connections</span><span>Explore the network. Search or select a hero to see who they connect to.</span></div>
+            <div class="network-explorer-grid">
+              <div class="network-stage">
+                <div id="network" class="sigma-network" role="img" aria-label="Interactive Marvel network"><div id="network-tooltip" class="network-tooltip" role="status" aria-hidden="true"></div></div>
+                <div class="network-controls" aria-label="Network controls">
+                  <label for="hero-search">Search a hero</label>
+                  <input id="hero-search" list="hero-options" type="search" placeholder="Try Spider-Man..." autocomplete="off">
+                  <datalist id="hero-options"></datalist>
+                  <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+                  <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+                  <button id="reset-network" type="button">Reset</button>
+                  <p id="network-status" class="status" aria-live="polite">Loading the Marvel network...</p>
+                </div>
+              </div>
+              <aside class="network-info-panel" aria-live="polite">
+                <p class="panel-label">Marvel network</p>
+                <div class="network-overview"><strong>303</strong><span>characters</span><strong>1,434</strong><span>connections</span></div>
+                <div class="network-selected">
+                  <span class="panel-label">Selected hero</span>
+                  <h3 id="network-name">Explore the graph</h3>
+                  <p id="network-prompt">Select a hero to see who they connect to.</p>
+                  <div class="network-metrics">
+                    <div><span>Degree</span><strong id="network-degree">—</strong></div>
+                    <div><span>Clustering</span><strong id="network-clustering">—</strong></div>
+                    <div><span>Distance</span><strong id="network-distance">—</strong></div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
+        <section id="hero" class="story-section">
+          <p class="section-kicker">02 / Find your hero</p>
+          <h2>What is true for one hero?</h2>
+          <p class="story-copy">Select a page to inspect its degree, local clustering, and average distance to other reachable pages.</p>
+          <div class="hero-panel">
+            <label for="hero-select">Hero</label>
+            <select id="hero-select"></select>
+            <div class="metric-grid">
+              <div><span>Degree</span><strong id="hero-degree">-</strong></div>
+              <div><span>Clustering</span><strong id="hero-clustering">-</strong></div>
+              <div><span>Average distance</span><strong id="hero-distance">-</strong></div>
+            </div>
+            <p id="hero-note" class="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section id="path" class="story-section">
+          <p class="section-kicker">03 / Find the path</p>
+          <h2>Can two heroes reach each other?</h2>
+          <p class="story-copy">Choose two pages and find a shortest path through the undirected network.</p>
+          <div class="path-panel">
+            <div class="path-fields">
+              <label>From<select id="path-from"></select></label>
+              <label>To<select id="path-to"></select></label>
+            </div>
+            <button id="find-path" type="button">Find shortest path</button>
+            <p id="path-result" class="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section id="comparison" class="story-section">
+          <p class="section-kicker">04 / Real vs random</p>
+          <h2>Does structure matter?</h2>
+          <p class="story-copy">We compare the Marvel network with an exact-size directed Erdős-Rényi-style random graph: the same 303 nodes and 1,784 directed edges, with distance and clustering measured on the undirected projection.</p>
+          <div id="comparison-chart" class="chart" aria-label="Comparison chart of Marvel and random network metrics"></div>
+          <p class="note">The random values come from the existing Week 2 `G(n,m)` analysis. Maximum degree and average distance reuse its saved comparison table; clustering was calculated for that same seeded random graph.</p>
+        </section>
+
+        <section id="conclusion" class="story-section final">
+          <p class="section-kicker">05 / Conclusion + methods</p>
+          <h2>So... Is Marvel a Small World?</h2>
+          <div class="conclusion-box">
+            <p>The Marvel network has a much higher clustering coefficient than the random comparison (<strong>0.307</strong> vs <strong>0.042</strong>), while its average distance is similar (<strong>2.674</strong> vs <strong>2.592</strong>). That combination is consistent with small-world-like structure in this snapshot.</p>
+            <p>It is not proof that the whole Marvel Universe is a small world: the result describes this Wikipedia network, its undirected projection, and this particular null model.</p>
+          </div>
+          <details class="methods">
+            <summary>Methods</summary>
+            <p>Week 1's 303-node, 1,784-edge directed graph is projected to a simple undirected graph for distance, clustering, and path exploration. Degree is the total number of incident directed links before projection. Average distance is computed over the selected hero's reachable component; isolated heroes return <strong>N/A - disconnected</strong>. The comparison random graph matches node and directed-edge counts using the existing fixed-seed Week 2 analysis.</p>
+          </details>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer page-grid">
+    <span>Graph Explorer / Week 2</span>
+    <a href="../week1.html">Return to Week 1</a>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FRENEMIES: a data story about what simple NLP can and cannot infer about Marvel relationships.">
+  <title>FRENEMIES | Week 5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="week5.css">
+  <script src="week5.js" defer></script>
+</head>
+<body class="week5-page">
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="Graph Explorer home"><span class="brand-mark">05</span><span>Graph Explorer</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a><a href="../index.html#stories">Stories</a><a href="../week1.html">Week 1</a><a href="../week2/week2.html">Week 2</a><a href="../week3/week3.html">Week 3</a><a href="../week4/week4.html">Week 4</a><a class="active" href="week5.html">Week 5</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner page-grid">
+        <p class="eyebrow">05 / Social graphs and interactions</p>
+        <h1 id="hero-title">FRENEMIES</h1>
+        <p class="hero-subtitle">When Friends Become Enemies</p>
+        <p class="hero-question">Can a machine tell the difference?</p>
+        <a class="hero-jump" href="#node">Follow the evidence <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section id="node" class="story-section page-grid node-section" aria-labelledby="node-title">
+      <div class="section-label">01 / From network to language</div>
+      <div class="section-intro">
+        <h2 id="node-title">We already know these characters.</h2>
+        <p>In the first four weeks, a Marvel character was a node in a network. Here, each character becomes a Wikipedia document: text that a machine has to reduce into evidence.</p>
+      </div>
+      <div class="character-picker" role="group" aria-label="Choose a Marvel character">
+        <button class="character-button is-active" type="button" data-character="Spider-Man">Spider-Man</button>
+        <button class="character-button" type="button" data-character="Venom">Venom</button>
+      </div>
+      <div class="node-document">
+        <div class="node-card"><span class="node-dot"></span><span>NETWORK NODE</span><strong id="node-name">Spider-Man</strong></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <article class="document-card">
+          <div class="document-card-top"><span>WIKIPEDIA DOCUMENT</span><a id="source-link" href="https://en.wikipedia.org/wiki/Spider-Man" target="_blank" rel="noreferrer">Open source ↗</a></div>
+          <h3 id="document-title">Spider-Man</h3>
+          <p id="document-preview">Loading a real Wikipedia extract...</p>
+          <dl class="document-meta"><div><dt>Characters</dt><dd id="char-count">—</dd></div><div><dt>Words</dt><dd id="word-count">—</dd></div><div><dt>Document</dt><dd>Live extract</dd></div></dl>
+        </article>
+      </div>
+      <p class="data-note" id="source-status">Loading the selected English Wikipedia article for this browser session.</p>
+      <p id="network-evidence" class="network-evidence">Loading the Week 1 Marvel network snapshot...</p>
+    </section>
+
+    <section id="machine" class="story-section section-dark" aria-labelledby="machine-title">
+      <div class="page-grid">
+        <div class="section-label">02 / The machine does not see friendship</div>
+        <div class="section-intro"><h2 id="machine-title">It sees tokens and contexts.</h2><p>Before a computer can count language, it has to decide where one piece of language ends and another begins. That decision already changes the representation.</p></div>
+        <div class="token-workbench">
+          <div class="raw-text-panel"><div class="panel-label">RAW TEXT</div><p id="raw-sentence">Spider-Man was created by writer-editor Stan Lee and artist Steve Ditko.</p><button id="tokenize-button" class="button button-light" type="button">Tokenize <span aria-hidden="true">→</span></button></div>
+          <div class="token-panel"><div class="panel-label">TOKENS</div><div id="token-output" class="token-output" aria-live="polite"><span>Choose “Tokenize” to expose the pieces.</span></div></div>
+          <aside class="token-stats"><div><span>Tokens</span><strong id="token-count">—</strong></div><div><span>Types</span><strong id="type-count">—</strong></div><div><span>Vocabulary</span><strong id="vocab-count">—</strong></div></aside>
+        </div>
+        <div class="preprocess-bar" aria-label="Preprocessing choices">
+          <p>Preprocessing is a modeling choice.</p>
+          <label><input id="lowercase-toggle" type="checkbox"> Lowercase</label>
+          <label><input id="punctuation-toggle" type="checkbox"> Remove punctuation</label>
+          <label><input id="stopwords-toggle" type="checkbox"> Remove stopwords</label>
+          <label><input id="lemma-toggle" type="checkbox"> Simplify endings</label>
+        </div>
+        <div class="subword-note"><span>WORD-LIKE TOKEN</span><strong>relationship</strong><span class="subword-arrow">→</span><span>SUBWORD PIECES</span><strong>relation · ship</strong><p>Modern language models also work with token pieces, not human concepts.</p></div>
+      </div>
+    </section>
+
+    <section id="count" class="story-section page-grid" aria-labelledby="count-title">
+      <div class="section-label">03 / Count first</div>
+      <div class="section-intro"><h2 id="count-title">What does counting think the relationship is?</h2><p>Words such as <em>friend</em>, <em>fight</em>, and <em>enemy</em> may all occur in the same story. Counting shows what appears, but not the changing relationship behind it.</p></div>
+      <div class="count-grid">
+        <div class="metrics-card"><div><span>Total tokens</span><strong id="corpus-token-count">—</strong></div><div><span>Total types</span><strong id="corpus-type-count">—</strong></div><div><span>Hapax types</span><strong id="hapax-count">—</strong></div></div>
+        <div class="frequency-card"><div class="panel-label">MOST FREQUENT CONTENT WORDS</div><ol id="frequency-list" class="frequency-list"><li>Loading article counts...</li></ol></div>
+      </div>
+      <div class="relationship-glance"><div><span>SPIDER-MAN</span><b>↕</b><span>VENOM</span></div><p id="relationship-words">Loading shared textual evidence...</p><strong>Shared language does not assign a single relationship label.</strong></div>
+    </section>
+
+    <section id="context" class="story-section context-section" aria-labelledby="context-title">
+      <div class="page-grid">
+        <div class="section-label">04 / Return to context</div>
+        <div class="section-intro"><h2 id="context-title">Why? Inspect the evidence.</h2><p>A concordance puts a word back in its local context. Select a term and read the actual source text around it before inferring a social relationship.</p></div>
+        <div class="context-controls" role="group" aria-label="Concordance terms"><button class="context-term is-active" type="button" data-term="enemy">enemy</button><button class="context-term" type="button" data-term="ally">ally</button><button class="context-term" type="button" data-term="fight">fight</button><button class="context-term" type="button" data-term="Venom">Venom</button></div>
+        <div class="kwic-panel"><div class="panel-label">CONCORDANCE / KEYWORD IN CONTEXT</div><div id="kwic-output" class="kwic-output" aria-live="polite"><p>Loading context windows...</p></div></div>
+        <div class="ngram-panel"><div><div class="panel-label">N-GRAMS</div><h3>More context, fewer exact repetitions.</h3></div><label for="ngram-range">n = <output id="ngram-value">2</output><input id="ngram-range" type="range" min="1" max="3" value="2"></label><div id="ngram-output" class="ngram-output"></div></div>
+      </div>
+    </section>
+
+    <section id="bow" class="story-section section-dark" aria-labelledby="bow-title">
+      <div class="page-grid">
+        <div class="section-label">05 / A story becomes a vector</div>
+        <div class="section-intro"><h2 id="bow-title">When a relationship becomes a Bag of Words.</h2><p>Each vocabulary term receives one column. The count vector is useful, but it cannot preserve word order, direction, or the passage of time.</p></div>
+        <div class="order-experiment"><div><span>Sentence A</span><strong>Spider-Man confronts Venom.</strong></div><div><span>Sentence B</span><strong>Venom confronts Spider-Man.</strong></div><div class="equals">=</div><div class="same-counts"><span>BAG OF WORDS</span><strong>Same counts</strong><small>Word order disappears.</small></div></div>
+        <div class="matrix-workbench"><label for="editable-document">Edit a tiny document<input id="editable-document" value="Spider-Man and Venom appear together."></label><div id="matrix-output" class="matrix-output" aria-live="polite"></div></div>
+      </div>
+    </section>
+
+    <section id="verdict" class="story-section page-grid verdict-section" aria-labelledby="verdict-title">
+      <div class="section-label">06 / Better question, better interpretation</div>
+      <div class="section-intro"><h2 id="verdict-title">A machine sees words. We see relationships.</h2><p>Compare real article extracts as word-count vectors, then test the first impression against the evidence.</p></div>
+      <div class="similarity-panel"><div><div class="panel-label">MARVEL LOOKALIKES</div><h3>Spider-Man and Venom</h3><p>Cosine similarity compares overlap in the selected article extracts.</p></div><div class="similarity-score"><strong id="similarity-score">—</strong><span id="similarity-method">Loading both live documents...</span></div><div id="shared-words" class="shared-words">Shared terms will appear here.</div></div>
+      <div class="verdict-card"><div><span class="panel-label">MACHINE'S FIRST IMPRESSION</span><h3>High textual similarity</h3><p>What relationship does that prove?</p></div><fieldset><legend>Relationship?</legend><label><input name="verdict" value="friend" type="radio"> Friend</label><label><input name="verdict" value="enemy" type="radio"> Enemy</label><label><input name="verdict" value="both" type="radio"> Both / changed over time</label></fieldset><div id="verdict-response" class="verdict-response">Choose an interpretation, then inspect its evidence.</div><button id="inspect-button" class="button button-dark" type="button">Inspect context <span aria-hidden="true">↓</span></button></div>
+      <div id="takeaway" class="takeaway"><p>Network node <span>↓</span> Document <span>↓</span> Tokens <span>↓</span> Counts <span>↓</span> Context <span>↓</span> Better interpretation</p><h2>The representation was incomplete, so the question was too simple.</h2><p>A Bag-of-Words model does not necessarily fail. It loses the relational and temporal structure needed to label a changing relationship responsibly.</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer page-grid"><p>Team Data Stories · Week 5</p><p>Sources: live English Wikipedia extracts · <a href="../index.html">Archive</a></p></footer>
+</body>
+</html>

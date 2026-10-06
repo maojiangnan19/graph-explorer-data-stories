@@ -2,6 +2,11 @@
 
 This is a plain HTML/CSS/JavaScript site that can be deployed directly with GitHub Pages.
 
+## Folder organization
+
+- `index.html`, `week1.html`, `styles.css`, and `script.js` stay in the project root because they are the GitHub Pages website entry files.
+- `social network/` contains the Marvel TSV data, Week 1 analysis notebook, network-analysis scripts, charts, and the local hero image.
+
 ## Update points
 
 - **Team name and members:** edit the marked placeholders in `index.html`, plus `[TEAM NAME]`, `[DATE]`, and the member names in `week1.html`.

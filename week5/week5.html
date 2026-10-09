@@ -40,18 +40,19 @@
       <div class="character-picker" role="group" aria-label="Choose a Marvel character">
         <button class="character-button is-active" type="button" data-character="Spider-Man">Spider-Man</button>
         <button class="character-button" type="button" data-character="Venom">Venom</button>
+        <label class="character-search" for="character-search">Explore 303 course texts<input id="character-search" type="search" list="character-options" placeholder="Find a Marvel character" autocomplete="off"><datalist id="character-options"></datalist></label>
       </div>
       <div class="node-document">
         <div class="node-card"><span class="node-dot"></span><span>NETWORK NODE</span><strong id="node-name">Spider-Man</strong></div>
         <div class="flow-arrow" aria-hidden="true">→</div>
         <article class="document-card">
-          <div class="document-card-top"><span>WIKIPEDIA DOCUMENT</span><a id="source-link" href="https://en.wikipedia.org/wiki/Spider-Man" target="_blank" rel="noreferrer">Open source ↗</a></div>
+          <div class="document-card-top"><span>COURSE TEXT SNAPSHOT</span><a id="source-link" href="https://en.wikipedia.org/wiki/Spider-Man" target="_blank" rel="noreferrer">Open source ↗</a></div>
           <h3 id="document-title">Spider-Man</h3>
-          <p id="document-preview">Loading a real Wikipedia extract...</p>
-          <dl class="document-meta"><div><dt>Characters</dt><dd id="char-count">—</dd></div><div><dt>Words</dt><dd id="word-count">—</dd></div><div><dt>Document</dt><dd>Live extract</dd></div></dl>
+          <p id="document-preview">Loading the local course snapshot...</p>
+          <dl class="document-meta"><div><dt>Characters</dt><dd id="char-count">—</dd></div><div><dt>Words</dt><dd id="word-count">—</dd></div><div><dt>Document</dt><dd>Course snapshot</dd></div></dl>
         </article>
       </div>
-      <p class="data-note" id="source-status">Loading the selected English Wikipedia article for this browser session.</p>
+      <p class="data-note" id="source-status">Loading the selected local course text for this browser session.</p>
       <p id="network-evidence" class="network-evidence">Loading the Week 1 Marvel network snapshot...</p>
     </section>
 
@@ -107,12 +108,12 @@
     <section id="verdict" class="story-section page-grid verdict-section" aria-labelledby="verdict-title">
       <div class="section-label">06 / Better question, better interpretation</div>
       <div class="section-intro"><h2 id="verdict-title">A machine sees words. We see relationships.</h2><p>Compare real article extracts as word-count vectors, then test the first impression against the evidence.</p></div>
-      <div class="similarity-panel"><div><div class="panel-label">MARVEL LOOKALIKES</div><h3>Spider-Man and Venom</h3><p>Cosine similarity compares overlap in the selected article extracts.</p></div><div class="similarity-score"><strong id="similarity-score">—</strong><span id="similarity-method">Loading both live documents...</span></div><div id="shared-words" class="shared-words">Shared terms will appear here.</div></div>
+      <div class="similarity-panel"><div><div class="panel-label">MARVEL LOOKALIKES</div><h3>Spider-Man and Venom</h3><p>Cosine similarity compares their course-snapshot documents.</p></div><div class="similarity-score"><strong id="similarity-score">—</strong><span id="similarity-method">Loading both course texts...</span></div><div id="shared-words" class="shared-words">Shared terms will appear here.</div><div class="lookalike-controls"><button id="lookalikes-button" class="button button-dark" type="button">Find closest texts <span aria-hidden="true">→</span></button><p id="lookalikes-status">Loads the 303 course documents once, then keeps them in this browser session.</p></div><ol id="lookalike-list" class="lookalike-list" aria-live="polite"></ol></div>
       <div class="verdict-card"><div><span class="panel-label">MACHINE'S FIRST IMPRESSION</span><h3>High textual similarity</h3><p>What relationship does that prove?</p></div><fieldset><legend>Relationship?</legend><label><input name="verdict" value="friend" type="radio"> Friend</label><label><input name="verdict" value="enemy" type="radio"> Enemy</label><label><input name="verdict" value="both" type="radio"> Both / changed over time</label></fieldset><div id="verdict-response" class="verdict-response">Choose an interpretation, then inspect its evidence.</div><button id="inspect-button" class="button button-dark" type="button">Inspect context <span aria-hidden="true">↓</span></button></div>
       <div id="takeaway" class="takeaway"><p>Network node <span>↓</span> Document <span>↓</span> Tokens <span>↓</span> Counts <span>↓</span> Context <span>↓</span> Better interpretation</p><h2>The representation was incomplete, so the question was too simple.</h2><p>A Bag-of-Words model does not necessarily fail. It loses the relational and temporal structure needed to label a changing relationship responsibly.</p></div>
     </section>
   </main>
 
-  <footer class="site-footer page-grid"><p>Team Data Stories · Week 5</p><p>Sources: live English Wikipedia extracts · <a href="../index.html">Archive</a></p></footer>
+  <footer class="site-footer page-grid"><p>Team Data Stories · Week 5</p><p>Sources: frozen course Wikipedia text snapshot · <a href="../index.html">Archive</a></p></footer>
 </body>
 </html>

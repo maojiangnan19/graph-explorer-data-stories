@@ -15,6 +15,27 @@ if (menuToggle && siteNav) {
   });
 }
 
+const storyList = document.querySelector('.story-list');
+const archiveSummary = document.querySelector('.section-heading .muted');
+
+if (storyList && !storyList.querySelector('[href="week5/week5.html"]')) {
+  const weekFive = document.createElement('a');
+  weekFive.className = 'story-card story-card-featured';
+  weekFive.href = 'week5/week5.html';
+  weekFive.innerHTML = '<div class="story-number">05</div><div class="story-content"><p class="tag">Text representation · Interactive</p><h3>Frenemies</h3><p>Compare Marvel character texts, then test why word counts cannot settle a changing relationship.</p><span class="card-link">Open Week 5 <span aria-hidden="true">↗</span></span></div><div class="card-arrow" aria-hidden="true">↗</div>';
+  storyList.append(weekFive);
+}
+
+if (storyList && !storyList.querySelector('[href="week6/week6.html"]')) {
+  const weekSix = document.createElement('a');
+  weekSix.className = 'story-card story-card-featured';
+  weekSix.href = 'week6/week6.html';
+  weekSix.innerHTML = '<div class="story-number">06</div><div class="story-content"><p class="tag">Text analysis · Interactive</p><h3>The Machine Reads Marvel</h3><p>Trace TF-IDF, cosine similarity, topics, and word associations across 303 Marvel character texts.</p><span class="card-link">Open Week 6 <span aria-hidden="true">↗</span></span></div><div class="card-arrow" aria-hidden="true">↗</div>';
+  storyList.append(weekSix);
+}
+
+if (storyList && archiveSummary) archiveSummary.textContent = 'Six data stories, from Marvel links to statistical patterns in character texts.';
+
 const explorerTabs = document.querySelectorAll('[data-degree-view]');
 const rankingPanels = document.querySelectorAll('[data-ranking-panel]');
 

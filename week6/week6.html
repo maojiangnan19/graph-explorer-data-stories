@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Week 6: a data story about the statistical patterns a machine finds in Marvel character texts.">
+  <title>The Machine Reads Marvel | Week 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="week6.css">
+  <script src="week6.js?v=20261022" defer></script>
+</head>
+<body class="week6-page">
+  <header class="site-header">
+    <a class="brand" href="../index.html" aria-label="Graph Explorer home"><span class="brand-mark">06</span><span>Graph Explorer</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+      <a href="../index.html">Home</a><a href="../index.html#stories">Stories</a><a href="../week1.html">Week 1</a><a href="../week2/week2.html">Week 2</a><a href="../week3/week3.html">Week 3</a><a href="../week4/week4.html">Week 4</a><a href="../week5/week5.html">Week 5</a><a class="active" href="week6.html">Week 6</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner page-grid">
+        <p class="eyebrow">06 / Text analysis</p>
+        <h1 id="hero-title">THE MACHINE<br>READS MARVEL</h1>
+        <p class="hero-subtitle">Can a machine understand a character by reading their words?</p>
+        <p class="hero-question">It can measure patterns. That is not the same thing.</p>
+        <a class="hero-jump" href="#signal">Read the evidence <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section id="signal" class="story-section page-grid reveal" aria-labelledby="signal-title">
+      <p class="section-label">01 / The signal</p>
+      <div class="section-intro"><h2 id="signal-title">What makes one character text distinctive?</h2><p>TF-IDF raises the weight of words that matter in one document but are uncommon across the course corpus. Cosine similarity compares the resulting document vectors.</p></div>
+      <div class="character-control"><label for="character-select">Choose a character text<input id="character-select" list="character-options" value="Spider-Man" autocomplete="off"></label><datalist id="character-options"></datalist><p id="character-note">Loading 303 course-snapshot documents...</p></div>
+      <div class="signal-grid">
+        <article class="signal-card"><p class="panel-label">DISTINCTIVE TF-IDF TERMS</p><h3 id="selected-character">Spider-Man</h3><ol id="term-list" class="term-list" aria-live="polite"></ol></article>
+        <article class="signal-card similarity-card"><p class="panel-label">CLOSEST DOCUMENTS BY COSINE</p><div id="neighbour-list" class="neighbour-list" aria-live="polite"></div><p class="method-note">Vectors use 1,593 corpus terms after lowercasing and stopword removal. A high score means similarly weighted words, not a shared identity or relationship.</p></article>
+      </div>
+    </section>
+
+    <section id="difference" class="story-section section-deep reveal" aria-labelledby="difference-title">
+      <div class="page-grid">
+        <p class="section-label">02 / The difference</p>
+        <div class="section-intro"><h2 id="difference-title">How do text communities speak?</h2><p>These are groups formed only by character names containing the selected label. The chart compares normalized word rates in that small group with all remaining documents.</p></div>
+        <div id="group-tabs" class="tab-row" role="tablist" aria-label="Choose a text group"></div>
+        <div class="comparison-panel"><div><p class="panel-label" id="group-label">GROUP COMPARISON</p><h3 id="group-heading">Words that separate the group</h3><p id="group-explainer">Loading group terms...</p></div><ol id="comparison-list" class="comparison-list" aria-live="polite"></ol></div>
+      </div>
+    </section>
+
+    <section id="topics" class="story-section page-grid reveal" aria-labelledby="topics-title">
+      <p class="section-label">03 / The hidden story</p>
+      <div class="section-intro"><h2 id="topics-title">Which word patterns recur across documents?</h2><p>Four non-negative matrix factorization components summarize recurring term combinations. They are model outputs, not labels discovered inside the characters.</p></div>
+      <div id="topic-tabs" class="topic-tabs" role="tablist" aria-label="Choose a topic"></div>
+      <div class="topic-stage"><div><p class="panel-label" id="topic-label">TOPIC 1</p><div id="topic-terms" class="topic-terms" aria-live="polite"></div></div><div class="topic-documents"><p class="panel-label">DOCUMENTS MOST ASSOCIATED</p><ol id="topic-documents"></ol><p>These documents receive the highest weight under this representation. The model does not know why those words occur together.</p></div></div>
+    </section>
+
+    <section id="context" class="story-section section-deep reveal" aria-labelledby="context-title">
+      <div class="page-grid">
+        <p class="section-label">04 / The context</p>
+        <div class="section-intro"><h2 id="context-title">When words meet, what is actually related?</h2><p>This network uses positive pointwise mutual information (PPMI): an edge means two terms occur together in character documents more often than their individual document frequencies predict.</p></div>
+        <div class="network-layout"><div class="network-stage"><svg id="word-network" viewBox="0 0 720 470" role="img" aria-label="Interactive PPMI word co-occurrence network"></svg></div><aside class="network-detail"><p class="panel-label">WORD NETWORK / PPMI</p><h3 id="network-title">Select a word</h3><p id="network-copy">Click a word to focus its document-level PPMI neighbourhood. Unrelated words fade so the selected association can be inspected.</p><dl><div><dt>METRIC</dt><dd>Document-level PPMI</dd></div><div><dt>EDGE</dt><dd>Positive association</dd></div></dl><button id="clear-network" class="button" type="button" disabled>Clear selection <span aria-hidden="true">×</span></button></aside></div>
+      </div>
+    </section>
+
+    <section id="reveal" class="story-section page-grid reveal" aria-labelledby="reveal-title">
+      <p class="section-label">05 / The reveal</p>
+      <div class="reveal-card"><p class="panel-label">THE LIMIT OF THE REPRESENTATION</p><h2 id="reveal-title">Pattern is not understanding.</h2><p>TF-IDF can distinguish documents. Cosine can compare their wording. A factorization can expose recurring terms. PPMI can show statistical association. None of these representations knows motives, irony, historical change, or what a relationship means to the people inside it.</p><a class="hero-jump" href="#signal">Revisit the evidence <span aria-hidden="true">↑</span></a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer page-grid"><p>Team Data Stories · Week 6</p><p>Source: frozen course Marvel text snapshot · <a href="README.md">Methods</a></p></footer>
+</body>
+</html>

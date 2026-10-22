@@ -158,7 +158,7 @@ if (networkExplorer) {
 
   const loadNetwork = async () => {
     try {
-      const [nodeResponse, edgeResponse] = await Promise.all([fetch('week1_nodes.tsv'), fetch('week1_edges.tsv')]);
+      const [nodeResponse, edgeResponse] = await Promise.all([fetch('social%20network/week1_nodes.tsv'), fetch('social%20network/week1_edges.tsv')]);
       if (!nodeResponse.ok || !edgeResponse.ok) throw new Error('The course data files could not be loaded.');
       const nodeRows = parseTsv(await nodeResponse.text());
       const edgeRows = parseTsv(await edgeResponse.text());

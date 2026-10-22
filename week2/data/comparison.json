@@ -1,0 +1,8 @@
+{
+  "nullModel": "Directed G(n,m) with n=303 and m=1784, using the existing Week 2 fixed-seed analysis; distance and clustering use the simple undirected projection.",
+  "metrics": [
+    {"metric": "Clustering", "Marvel": 0.3074542598, "Random": 0.0418022938},
+    {"metric": "Average shortest-path length", "Marvel": 2.6743316068, "Random": 2.5923983127},
+    {"metric": "Maximum degree", "Marvel": 115, "Random": 22}
+  ]
+}
